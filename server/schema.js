@@ -1,16 +1,28 @@
 const Schema = [`
-  type Film {
-    title: String
-    isSeen: Boolean
+  type User {
+    _id: Int
+    email: String
+    messages: [Message]
+    groups: [Group]
+    friends: [User]
+    jwt: String
   }
 
-  type People {
+  type Message {
+    _id: String
+    to: Group
+    from: User
+    text: String
+  }
+
+  type Group {
+    _id: String
     name: String
-    films: [Film]
+    users: [User]
+    messages: [Messages]
   }
 
   type Query {
-    fetchUser: [People]
   }
 
   schema {
