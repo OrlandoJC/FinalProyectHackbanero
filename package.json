@@ -4,5 +4,21 @@
   "main": "index.js",
   "repository": "git@github.com:Jerolan/FinalProyectHackbanero.git",
   "author": "Jerome Olvera <jerome.olvera@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon server --exec babel-node"
+  },
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.4",
+    "graphql": "^0.10.5",
+    "graphql-server-express": "^1.1.0",
+    "graphql-tools": "^1.2.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "nodemon": "^1.11.0"
+  }
 }
