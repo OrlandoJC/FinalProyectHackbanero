@@ -1,4 +1,5 @@
 export default {
+  Boolean: () => false,
   String: () => 'Hola Graph',
   User: () => ({
     username: () => 'Username',

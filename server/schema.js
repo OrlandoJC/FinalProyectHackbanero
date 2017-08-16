@@ -1,12 +1,16 @@
 const Schema = [`
-  type User {
-    username: String
-    email: String
-    age: Int
+  type Film {
+    title: String
+    isSeen: Boolean
+  }
+
+  type People {
+    name: String
+    films: [Film]
   }
 
   type Query {
-    fetchUser: User
+    fetchUser: [People]
   }
 
   schema {
