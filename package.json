@@ -1,0 +1,8 @@
+{
+  "name": "FinalProyect",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:Jerolan/FinalProyectHackbanero.git",
+  "author": "Jerome Olvera <jerome.olvera@gmail.com>",
+  "license": "MIT"
+}
