@@ -60,8 +60,8 @@ const seed = async () => {
   try {
     const users = await manyUsers()
     const groups = await manyGroups(users)
-    const messages = await manyMessages([].concat.apply([], groups))
-    console.log(messages)
+    await manyMessages([].concat.apply([], groups))
+    return true
   } catch (e) {
     throw e
   }
