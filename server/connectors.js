@@ -1,14 +1,26 @@
 import mongoose, { Schema } from 'mongoose'
 
-mongoose.connect('mongodb://localhost:27017/graph-test')
-
-const seenMoviesSchema = new Schema({
-  episodeId: { type: Number },
-  isSeen: { type: Boolean, default: false }
+const UserSchema = new Schema({
+  email: { type: String },
+  password: { type: String },
+  messages: [{ type: Schema.Types.ObjectId }],
+  groups: [{ type: Schema.Types.ObjectId }],
+  friends: [{ type: Schema.Types.ObjectId }],
+  jwt: { type: String }
 })
 
-const SeenMovies = mongoose.model('SeenMovies', seenMoviesSchema)
+const MessagesSchema = new Schema({
+  from: { type: Schema.Types.ObjectId },
+  to: { type: Schema.Types.ObjectId },
+  text: { type: String }
+})
 
-export {
-  SeenMovies
-}
+const GroupSchema = new Schema({
+  name: { type: String },
+  users: [{ type: Schema.Types.ObjectId }],
+  messages: [{ type: Schema.Types.ObjectId }]
+})
+
+export const User = mongoose.model('User', UserSchema)
+export const Message = mongoose.model('Message', MessagesSchema)
+export const Group = mongoose.model('Group', GroupSchema)
