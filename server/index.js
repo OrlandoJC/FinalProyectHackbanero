@@ -20,12 +20,10 @@ const app = express()
 
 app.use(bodyParser.json())
 
-/*
 const executableSchema = makeExecutableSchema({
   typeDefs: Schema,
   resolvers: Resolvers
 })
-*/
 
 /*
 addMockFunctionsToSchema({
@@ -34,7 +32,7 @@ addMockFunctionsToSchema({
   preserveResolvers: true
 })
 */
-/*
+
 // End points
 app.use('/graphql', graphqlExpress({
   schema: executableSchema,
@@ -44,7 +42,6 @@ app.use('/graphql', graphqlExpress({
 app.use('/graphiql', graphiqlExpress({
   endpointURL: '/graphql'
 }))
-*/
 
 const init = async () => {
   try {

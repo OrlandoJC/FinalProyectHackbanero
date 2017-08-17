@@ -1,6 +1,6 @@
 const Schema = [`
   type User {
-    _id: Int
+    _id: String
     email: String
     messages: [Message]
     groups: [Group]
@@ -19,10 +19,11 @@ const Schema = [`
     _id: String
     name: String
     users: [User]
-    messages: [Messages]
+    messages: [Message]
   }
 
   type Query {
+    fetchUsers: [User]
   }
 
   schema {
