@@ -100,10 +100,27 @@ const manyGroups = users => {
           if (err) c(err)
           User.findByIdAndUpdate(user._id, {
             friends: [friendA._id, friendB._id]
-          }, (err, done) => {
-            if (err) c(err)
-            else c(null, group)
           })
+          .then(() => {
+            return User.findById(friendA._id)
+            .then(_user => {
+              return User.findByIdAndUpdate(friendA._id, {
+                friends: [..._user.friends, user._id, friendB._id]
+              })
+            })
+          })
+          .then(() => {
+            return User.findById(friendB._id)
+            .then(_user => {
+              return User.findByIdAndUpdate(friendB._id, {
+                friends: [..._user.friends, friendA._id, user._id]
+              })
+            })
+          })
+          .then(() => {
+            c(null, group)
+          })
+          .catch(c)
         })
       }, c)
     },
@@ -127,8 +144,7 @@ const manyMessages = groups => {
           return User.findById(message.from)
           .then(user => {
             return User.findByIdAndUpdate(user._id, {
-              messages: [...user.messages, message._id],
-              groups: [...user.groups, group._id]
+              messages: [...user.messages, message._id]
             })
           })
           .then(() => {
