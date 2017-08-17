@@ -2,8 +2,29 @@ import { User, Message, Group } from './connectors'
 
 export default {
   Query: {
-    fetchUsers: async (_, arg, ctx) => {
-      return User.find({})
+    fetchUsers: (_, arg, ctx) => User.find({})
+  },
+
+  Mutation: {
+    createMessage: async (_, { userId, text, groupId }, ctx) => {
+      const message = await new Message({
+        text,
+        to: groupId,
+        from: userId
+      })
+      .save()
+
+      const user = await User.findById(userId)
+      await User.findByIdAndUpdate(user._id, {
+        messages: [...user.messages, message._id]
+      })
+
+      const group = await Group.findById(groupId)
+      await Group.findByIdAndUpdate(group._id, {
+        messages: [...group.messages, message._id]
+      })
+
+      return message
     }
   },
 

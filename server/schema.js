@@ -24,10 +24,16 @@ const Schema = [`
 
   type Query {
     fetchUsers: [User]
+    fetchUser(userId: String): User
+  }
+
+  type Mutation {
+    createMessage(userId: String, text: String, groupId: String): Message
   }
 
   schema {
-    query: Query
+    query: Query,
+    mutation: Mutation
   }
 `]
 
