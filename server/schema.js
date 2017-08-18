@@ -22,18 +22,42 @@ const Schema = [`
     messages: [Message]
   }
 
+  input MessageInput {
+    groupId: Int!
+    text: String!
+  }
+
+  input GroupInput {
+    name: String!
+    userIds: [Int!]
+  }
+
+  input UserInput {
+    email: String!
+    password: String!
+  }
+
   type Query {
-    fetchUsers: [User]
-    fetchUser(userId: String): User
+    user(email: String, _id: Int): User
+    messages(groupId: Int, userId: Int): [Message]
+    group(_id: Int!): Group
   }
 
   type Mutation {
-    createMessage(userId: String, text: String, groupId: String): Message
+    login(user: UserInput!): User
+    createMessage(message: MessageInput!): Message
+    createGroup(group: GroupInput!): Group
+  }
+
+  type Subscription {
+    messageAdded(groupIds: [Int]): Message
+    groupAdded(userId: Int): Group
   }
 
   schema {
     query: Query,
     mutation: Mutation
+    subscription: Subscription
   }
 `]
 
