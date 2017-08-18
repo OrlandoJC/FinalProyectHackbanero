@@ -14,12 +14,12 @@ import Schema from './schema'
 // import Mocks from './mocks'
 import Resolvers from './resolvers'
 
+mongoose.Promise = global.Promise
+
 const port = 3000
 const app = express()
+const shouldSeed = false // Cambiar a true para seedear db !Borrara la base de datos actual
 const dburl = 'mongodb://127.0.0.1:27017/graph-test'
-
-mongoose.connect(dburl)
-mongoose.Promise = global.Promise
 
 app.use(bodyParser.json())
 
@@ -57,24 +57,21 @@ app.use('/graphiql', graphiqlExpress({
   subscriptionsEndpoint: `ws://localhost:${port}/subscriptions`
 }))
 
-/*
 const init = async () => {
   try {
-    await databaseInit(dburl)
-    await seed()
-    app.listen(port, () => console.log(`App listen ${port}`))
+    await databaseInit(shouldSeed, dburl)
+    await seed(shouldSeed)
+
+    app.listen(port, () => console.log(`
+      Application port: ${port}
+      Subscriptions port: ${port}
+    `))
   } catch (e) {
     throw e
   }
 }
 
 init()
-*/
-
-app.listen(port, () => console.log(`
-  Application port: ${port}
-  Subscriptions port: ${port}
-`))
 
 SubscriptionServer.create({
   schema: executableSchema,

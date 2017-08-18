@@ -6,11 +6,12 @@ import asyncMap from 'async/map'
 import sample from 'lodash/sample'
 import mongoose from 'mongoose'
 
-export const seed = async () => {
+export const seed = async (shouldSeed) => {
   try {
+    if (!shouldSeed) return true
     const users = await manyUsers()
     const groups = await manyGroups(users)
-    await manyMessages([].concat.apply([], groups))
+    manyMessages([].concat.apply([], groups))
     return true
   } catch (e) {
     throw e
@@ -117,13 +118,20 @@ const manyMessages = groups => {
   })
 }
 
-export const databaseInit = (dburl) => {
-  return new Promise((resolve, reject) => {
+export const databaseInit = (shouldSeed, dburl) => {
+  return shouldSeed
+  ? new Promise((resolve, reject) => {
     mongoose.connect(dburl, () => {
       mongoose.connection.db.dropDatabase(() => {
         console.log('Database cleaned')
         resolve()
       })
+    })
+  })
+  : new Promise((resolve, reject) => {
+    mongoose.connect(dburl, () => {
+      console.log('Database connected')
+      resolve()
     })
   })
 }
