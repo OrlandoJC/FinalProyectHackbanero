@@ -7,6 +7,7 @@ import jwt from 'express-jwt'
 import { SubscriptionServer } from 'subscriptions-transport-ws'
 import { execute, subscribe } from 'graphql'
 
+import { seed, databaseInit } from './db'
 import { SECRET } from './config'
 import { User } from './connectors'
 import Schema from './schema'
