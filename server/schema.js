@@ -23,13 +23,13 @@ const Schema = [`
   }
 
   input MessageInput {
-    groupId: Int!
+    groupId: String!
     text: String!
   }
 
   input GroupInput {
     name: String!
-    userIds: [Int!]
+    userIds: [String!]
   }
 
   input UserInput {
@@ -38,9 +38,9 @@ const Schema = [`
   }
 
   type Query {
-    user(email: String, _id: Int): User
-    messages(groupId: Int, userId: Int): [Message]
-    group(_id: Int!): Group
+    user(email: String, _id: String): User
+    messages(groupId: String, userId: String): [Message]
+    group(_id: String!): Group
   }
 
   type Mutation {
@@ -50,8 +50,8 @@ const Schema = [`
   }
 
   type Subscription {
-    messageAdded(groupIds: [Int]): Message
-    groupAdded(userId: Int): Group
+    messageAdded(groupIds: [String]): Message
+    groupAdded(userId: String): Group
   }
 
   schema {

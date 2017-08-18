@@ -18,6 +18,7 @@ const app = express()
 const dburl = 'mongodb://127.0.0.1:27017/graph-test'
 
 mongoose.connect(dburl)
+mongoose.Promise = global.Promise
 
 app.use(bodyParser.json())
 
@@ -68,6 +69,7 @@ const init = async () => {
 
 init()
 */
+
 app.listen(port, () => console.log(`
   Application port: ${port}
   Subscriptions port: ${port}

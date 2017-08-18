@@ -37,7 +37,11 @@ export default {
 
       if (password !== userExist.password) throw new Error('No son las mismas contraseñas')
 
-      const token = jwt.sign(userExist, SECRET)
+      const token = jwt.sign({
+        _id: userExist._id,
+        email: userExist.email
+      }, SECRET)
+
       const signedUser = await User.findByIdAndUpdate(userExist._id, { jwt: token }, { new: true })
       return signedUser
     },
